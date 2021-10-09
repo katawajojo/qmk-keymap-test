@@ -62,9 +62,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define USB_POLLING_INTERVAL_MS 1
 #define QMK_KEYS_PER_SCAN 12
-#define DISABLE_OLED_TIMEOUT
 #define USE_SERIAL_PD2
 #define FORCE_NKRO
 #define DYNAMIC_KEYMAP_LAYER_COUNT 6
+#define OLED_TIMEOUT 60000
 
 // #define OLED_FONT_H "lib/glcdfont_ryu.c"

@@ -41,7 +41,7 @@
  */
 #define MOON_LINE 4    // the line you want the moon to appear at
 #define MOON_COLUMN 4  // the column you want the moon to appear at
-#define STATIC_MOON  // uncomment this to make the moon a static image, no animation
+// #define STATIC_MOON  // uncomment this to make the moon a static image, no animation
 #ifndef STATIC_MOON
 #    define ANIMATE_MOON_EVERY_N_FRAMES 100  // animate the moon every n frames
 #endif
@@ -99,6 +99,5 @@ extern bool is_calm;
 // timers
 extern uint32_t starry_night_anim_timer;
 extern uint32_t starry_night_anim_sleep;
-extern int current_wpm;
 
 void render_stars(void);

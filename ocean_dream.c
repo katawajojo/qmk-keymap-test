@@ -549,7 +549,7 @@ void render_stars(void) {
     /*if (current_wpm > 0) {
         oled_on();
         starry_night_anim_sleep = timer_read32();
-    } else if (timer_elapsed32(starry_night_anim_sleep) > OLED_TIMEOUT) {
+    } else if (timer_elapsed32(starry_night_anim_sleep) > 30000) {
         oled_off();
     }*/
 }
