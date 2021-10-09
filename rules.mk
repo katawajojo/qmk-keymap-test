@@ -1,4 +1,4 @@
-BOOTLOADER = qmk-dfu
+# BOOTLOADER = qmk-dfu
 
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in

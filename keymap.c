@@ -31,6 +31,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [5] = LAYOUT(RESET, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, DF(2), DF(1), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
 };
 
+uint32_t oled_timer = 0;
+static long int oled_timeout = 60000; // 10 seconds
+
 #ifdef OLED_ENABLE
 
 
@@ -122,16 +125,21 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 void oled_task_user(void) {
     // Establishing Sides
     if (is_keyboard_master()) {
-        print_logo_panel();
+        if (get_current_wpm() != 000 || timer_elapsed32(oled_timer) <= oled_timeout) {
+            print_logo_panel();
 #    ifdef LUNA_ENABLE
-        led_usb_state = host_keyboard_led_state();
-        render_luna(0, 11);
+            led_usb_state = host_keyboard_led_state();
+            render_luna(0, 11);
 #    endif
+        } else {
+            oled_off();
+        }
     } else {
 #    ifdef OCEAN_DREAM_ENABLE
         render_stars();
 #    endif
     }
+
 }
 
 #endif
@@ -156,6 +164,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
     }
 
+    if (record->event.pressed) {
+        oled_timer = timer_read32();
+    }
     return true;
 };
 
